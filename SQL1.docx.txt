@@ -1,0 +1,612 @@
+﻿# SQL Practice Questions
+
+## Part C: DATA MANAGEMENT
+
+### 35. Write the resulting output of the following:
+
+| Query | Output |
+| :--- | :--- |
+| **(a) SELECT ROUND(1023.432,1);** | 1023.4 |
+| **(b) SELECT LENGTH"RAMESH SHARMA";** | 12 |
+| **(c) SELECT UPPER('master');** | MASTER |
+| **(d) SELECT MOD(ROUND(120.60, 1), 5);** | 1 |
+| **(e) SELECT POWER(5, 5);** | 3125 |
+| **(f) SELECT CEIL(120.0);** | 120 |
+| **(g) SELECT CEIL(120.34);** | 121 |
+| **(h) SELECT FLOOR(65467.8890);** | 65467 |
+| **(i) SELECT FLOOR(12340.0);** | 12340 |
+| **(j) SELECT MOD(36, 3);** | 0 |
+| **(k) SELECT MOD(14*9,90/9);** | 6 |
+| **(l) SELECT ROUND(3244.1962, 1);** | 3244.2 |
+| **(m) SELECT SQRT(144);** | 12 |
+| **(n) SELECT SQRT(15.6*24.3);** | 19.48... |
+| **(o) SELECT 1000+SQRT(100);** | 1010 |
+| **(p) SELECT FLOOR(144.34) + 1000 + CEIL(32.23);**| 1177 |
+| **(q) SELECT MOD(9*5,9)+CEIL(100.56);** | 101 |
+| **(r) SELECT SQRT(15);** | 3.87... |
+| **(s) SELECT SQRT(345) + SQRT(15);** | 22.45... |
+| **(t) SELECT FLOOR(100.34) + ABS(200.43);** | 300.43 |
+| **(u) SELECT FLOOR(3456.98)+CEIL(9876.89);** | 13333 |
+| **(v) SELECT TRIM(' ABS Public School ');** | ABS Public School |
+| **(w) SELECT LENGTH('ABS Public School');** | 17 |
+| **(x) SELECT LOWER ('ABS Public School');** | abs public school |
+| **(y) SELECT SUBSTR('ABS Public School',1,3);** | ABS |
+| **(z) SELECT UPPER('ABS Public School');** | ABS PUBLIC SCHOOL |
+| **(aa) SELECT SUBSTR(TRIM(' INDIA IS GREAT '),3,9);** | DIA IS GR |
+
+---
+
+### HOSPITAL Table
+
+**Table Data:**
+
+| PNo | Name | Age | Department | Dateofadm | Charges | Sex |
+| :-- | :--- | :-: | :--- | :--- | :---: | :-: |
+| 1 | Arprit | 62 | Surgery | 2008-01-12 | 300 | M |
+| 2 | Zarina | 22 | ENT | 2007-12-12 | 250 | F |
+| 3 | Kareem | 32 | Orthopaedic | 2008-02-19 | 200 | M |
+| 4 | Arun | 12 | Surgery | 2008-01-11 | 300 | M |
+| 5 | Zubin | 30 | ENT | 2008-01-12 | 250 | M |
+| 6 | Ketaki | 16 | ENT | 2008-02-24 | 250 | F |
+| 7 | Ankita | 29 | Cardiology | 2008-02-20 | 800 | F |
+| 8 | Zareen | 45 | Gynaecology | 2008-02-22 | 300 | F |
+| 9 | Kush | 19 | Cardiology | 2008-01-13 | 800 | M |
+| 10 | Shilpa | 23 | Nuclear Medicine| 2008-01-20 | 400 | F |
+
+**Questions & Answers:**
+
+1.  **Write a command to create HOSPITAL table.**
+   ```sql
+   CREATE TABLE HOSPITAL (
+       PNo INT PRIMARY KEY,
+       Name VARCHAR(255),
+       Age INT,
+       Department VARCHAR(255),
+       Dateofadm DATE,
+       Charges INT,
+       Sex CHAR(1)
+   );
+   ```
+
+2.  **Write a command to describe the structure of the above table.**
+   ```sql
+   DESC HOSPITAL;
+   ```
+
+3.  **To select all the information of patients of cardiology department.**
+   ```sql
+   SELECT * FROM HOSPITAL WHERE Department = 'Cardiology';
+   ```
+
+4.  **To list the names of female patients who are in ENT department.**
+   ```sql
+   SELECT Name FROM HOSPITAL WHERE Sex = 'F' AND Department = 'ENT';
+   ```
+
+5.  **To list names of all patients with their date of admission in ascending order.**
+   ```sql
+   SELECT Name FROM HOSPITAL ORDER BY Dateofadm ASC;
+   ```
+
+6.  **To display Patient's Name, Charges, Age of only female patients.**
+   ```sql
+   SELECT Name, Charges, Age FROM HOSPITAL WHERE Sex = 'F';
+   ```
+
+7.  **To count the number of patients with Age < 30.**
+   ```sql
+   SELECT COUNT(*) FROM HOSPITAL WHERE Age < 30;
+   ```
+   **Output:** 6
+
+8.  **Display the department wise total charges.**
+   ```sql
+   SELECT Department, SUM(Charges) FROM HOSPITAL GROUP BY Department;
+   ```
+
+9.  **Display the department wise total charges whose maximum charges more than equal to 300.**
+   ```sql
+   SELECT Department, SUM(Charges) FROM HOSPITAL GROUP BY Department HAVING MAX(Charges) >= 300;
+   ```
+
+10. **Add one more column in the above table as Address of type char(20).**
+   ```sql
+   ALTER TABLE HOSPITAL ADD Address CHAR(20);
+   ```
+
+11. **Modify the column Address as char(25).**
+   ```sql
+   ALTER TABLE HOSPITAL MODIFY Address CHAR(25);
+   ```
+
+12. **Change the name of the column Address to Home\_address.**
+   ```sql
+   ALTER TABLE HOSPITAL RENAME COLUMN Address TO Home_address;
+   ```
+
+13. **Drop the column Home\_Address.**
+   ```sql
+   ALTER TABLE HOSPITAL DROP COLUMN Home_address;
+   ```
+
+14. **SELECT COUNT(DISTINCT Charges) FROM HOSPITAL;**
+   **Output:** 4
+
+15. **SELECT MIN(Age) FROM HOSPITAL WHERE Sex = 'F';**
+   **Output:** 16
+
+16. **SELECT SUM(Charges) FROM HOSPITAL WHERE Department = 'ENT';**
+   **Output:** 750
+
+17. **SELECT AVG(Charges) FROM HOSPITAL WHERE Dateofadm < '2008-02-12';**
+   **Output:** 412.5
+
+---
+
+### STUDENT Table
+
+**Table Data:**
+
+| No. | Name | Age | Department | Dateofadm | Fees | Sex |
+| :-: | :--- | :-: | :--- | :--- | :--: | :-: |
+| 1 | Pankaj | 24 | Computer | 1997-01-10 | 120 | M |
+| 2 | Shalini | 21 | History | 1998-03-24 | 200 | F |
+| 3 | Sanjay | 22 | Hindi | 1996-12-12 | 300 | M |
+| 4 | Sudha | 25 | History | 1999-07-01 | 400 | F |
+| 5 | Rakesh | 22 | Hindi | 1997-09-05 | 250 | M |
+| 6 | Shakeel | 30 | History | 1998-06-27 | 300 | M |
+| 7 | Surya | 34 | Computer | 1997-02-25 | 210 | M |
+| 8 | Shikha | 23 | Hindi | 1997-07-31 | 200 | F |
+
+**Questions & Answers:**
+
+**(a) To show all information about the students of History department.**
+```sql
+SELECT * FROM STUDENT WHERE Department = 'History';
+
+(b) To list the names of female students who are in Hindi department.
+SELECT Name FROM STUDENT WHERE Department = 'Hindi' AND Sex = 'F';
+
+(c) To list names of all students with their dateofadmission in ascending order.
+SELECT Name FROM STUDENT ORDER BY Dateofadm ASC;
+
+(d) To display Student's Name, Fees, age of male students only.
+SELECT Name, Fees, Age FROM STUDENT WHERE Sex = 'M';
+
+(e) To count the number of students with age>23.
+SELECT COUNT(*) FROM STUDENT WHERE Age > 23;
+
+Output: 3
+(f) To insert a new row in the STUDENT table with the following data : 9, 'Zaheer', 36, 'Computer', '1997-03-12', 230, 'M'
+INSERT INTO STUDENT VALUES (9, 'Zaheer', 36, 'Computer', '1997-03-12', 230, 'M');
+
+(g) Give the output of the following SQL statements [Include the last inserted values in part (f)]
+* (i) SELECT COUNT(DISTINCT Department) FROM STUDENT; Output: 3
+* (ii) SELECT MAX(Age) FROM STUDENT WHERE Sex = 'F'; Output: 25
+* (iii) SELECT AVG(Fees) FROM STUDENT WHERE SEX = 'M'; Output: 222
+* (iv) SELECT SUM(Fees) FROM STUDENT WHERE Dateofadm <'1998-01-01'; Output: 1080
+TEACHER Table
+Table Data:
+No.
+	Name
+	Age
+	Department
+	Dateofjoin
+	Salary
+	Sex
+	1
+	Jugal
+	34
+	Computer
+	1997-01-10
+	12000
+	M
+	2
+	Sharmila
+	31
+	History
+	1998-03-24
+	20000
+	F
+	3
+	Sandeep
+	32
+	Maths
+	1996-12-12
+	30000
+	M
+	4
+	Sangeeta
+	35
+	History
+	1999-07-01
+	40000
+	F
+	5
+	Rakesh
+	42
+	Maths
+	1997-09-05
+	25000
+	M
+	6
+	Shyam
+	50
+	History
+	1998-06-27
+	30000
+	M
+	7
+	Shiv Om
+	44
+	Computer
+	1997-02-25
+	21000
+	M
+	8
+	Shalakha
+	33
+	Maths
+	1997-07-31
+	20000
+	F
+	Questions & Answers:
+(a) To show all information about the teacher of History department.
+SELECT * FROM TEACHER WHERE Department = 'History';
+
+(b) To list the name of female teachers who are in Maths department.
+SELECT Name FROM TEACHER WHERE Department = 'Maths' AND Sex = 'F';
+
+(c) To list names of all teachers along with their date of joining in ascending order.
+SELECT Name FROM TEACHER ORDER BY Dateofjoin ASC;
+
+(d) To display teacher's Name, Salary, age for male teacher only.
+SELECT Name, Salary, Age FROM TEACHER WHERE Sex = 'M';
+
+(e) To count the number of teachers with age>23.
+SELECT COUNT(*) FROM TEACHER WHERE Age > 23;
+
+Output: 8
+(f) To insert a new row in the TEACHER table with the following data : 9, 'Raja', 26, 'Computer', '1995-05-13', 23000, 'M'
+INSERT INTO TEACHER VALUES (9, 'Raja', 26, 'Computer', '1995-05-13', 23000, 'M');
+
+(g) Give the output of the following SQL statements [Include the last inserted values in part (f)]
+* (i) SELECT COUNT(DISTINCT Department) FROM TEACHER; Output: 3
+* (ii) SELECT MAX(Age) FROM TEACHER WHERE SEX = 'F'; Output: 35
+* (iii) SELECT AVG(Salary) FROM TEACHER WHERE SEX = 'M'; Output: 24200
+* (iv) SELECT SUM(Salary) FROM TEACHER WHERE DATEOFJOIN <'1996-07-12'; Output: 23000
+CLUB and COACHES Tables
+CLUB Table Data:
+COACH_ID
+	COACH_NAME
+	AGE
+	SPORTS
+	DATEOFAPP
+	PAY
+	SEX
+	1
+	KUKREJA
+	35
+	KARATE
+	2002-03-27
+	1000
+	M
+	2
+	RAVINA
+	34
+	KARATE
+	2004-01-20
+	1200
+	F
+	3
+	KARAN
+	34
+	SQUASH
+	2004-02-19
+	2000
+	M
+	4
+	TARUN
+	33
+	BASKETBALL
+	2004-01-01
+	1500
+	M
+	5
+	ZUBIN
+	36
+	SWIMMING
+	2004-01-12
+	750
+	M
+	6
+	KETAKI
+	36
+	SWIMMING
+	2004-02-24
+	800
+	F
+	7
+	ANKITA
+	39
+	SQUASH
+	2004-02-20
+	2200
+	F
+	8
+	ZAREEN
+	37
+	KARATE
+	2004-02-22
+	1100
+	F
+	9
+	KUSH
+	41
+	SWIMMING
+	2004-01-13
+	900
+	M
+	10
+	SHAILYA
+	37
+	BASKETBALL
+	2004-02-19
+	1700
+	M
+	Questions & Answers:
+(a) To show all information about the swimming coaches in the club.
+SELECT * FROM CLUB WHERE SPORTS = 'SWIMMING';
+
+(b) To list names of all coaches with their date of appointment (DATEOFAPP) in descending order.
+SELECT COACH_NAME FROM CLUB ORDER BY DATEOFAPP DESC;
+
+(c) To display a report, showing coach name, pay, age and bonus (15% of pay) for all the coaches.
+SELECT COACH_NAME, PAY, AGE, PAY * 0.15 AS BONUS FROM CLUB;
+
+(d) To insert a new row in the CLUB table with the following data: 11, 'RAJIV', 40, 'Hockey', '2000-05-27', 2006, 'M'
+INSERT INTO CLUB VALUES (11, 'RAJIV', 40, 'Hockey', '2000-05-27', 2006, 'M');
+
+(e) Give the output of the following SQL statements: [Include the last inserted values in part (d)]
+* (i) SELECT COUNT(DISTINCT SPORTS) FROM CLUB; Output: 5
+* (ii) SELECT MIN(AGE) FROM CLUB WHERE SEX = 'F'; Output: 34
+* (iii) SELECT AVG(PAY) FROM CLUB WHERE SPORTS='KARATE'; Output: 1100
+* (iv) SELECT SUM(PAY) FROM CLUB WHERE DATEOFAPP > '2004-01-31'; Output: 7000
+GRADUATE Table
+Table Data:
+SNO
+	NAME
+	STIPEND
+	SUBJECT
+	AVERAGE
+	DIV1
+	1
+	KARAN
+	400
+	PHYSICS
+	68
+	1
+	2
+	DIVAKAR
+	450
+	COMPUTER SC
+	68
+	1
+	3
+	DIVYA
+	300
+	CHEMISTRY
+	62
+	2
+	4
+	ARUN
+	350
+	PHYSICS
+	63
+	1
+	5
+	SABINA
+	500
+	MATHEMATICS
+	70
+	1
+	6
+	JOHN
+	400
+	CHEMISTRY
+	55
+	2
+	7
+	ROBERT
+	250
+	PHYSICS
+	64
+	1
+	8
+	RUBINA
+	450
+	MATHEMATICS
+	68
+	1
+	9
+	VIKAS
+	500
+	COMPUTER SC
+	62
+	1
+	10
+	MOHAN
+	300
+	MATHEMATICS
+	57
+	2
+	Questions & Answers:
+(a) List the names of those students who have obtained DIV1 = 1 sorted by NAME.
+SELECT NAME FROM GRADUATE WHERE DIV1 = 1 ORDER BY NAME;
+
+(b) Display the report, listing NAME, STIPEND, SUBJECT and amount of stipend received in a year assuming that the STIPEND is paid every month.
+SELECT NAME, STIPEND, SUBJECT, STIPEND * 12 AS YEARLY_STIPEND FROM GRADUATE;
+
+(c) To count the number of students who are either PHYSICS or COMPUTER SC graduates.
+SELECT COUNT(*) FROM GRADUATE WHERE SUBJECT IN ('PHYSICS', 'COMPUTER SC');
+
+Output: 5
+(d) To insert a new row in the GRADUATE table: 11, 'KAJOL', 300, 'COMPUTER SC', 75, 1
+INSERT INTO GRADUATE VALUES (11, 'KAJOL', 300, 'COMPUTER SC', 75, 1);
+
+(e) Give the output of the following SQL statement based on table GRADUATE: [Include the last inserted values in part (d)]
+* (i) SELECT MIN(AVERAGE) FROM GRADUATE WHERE SUBJECT='PHYSICS'; Output: 63
+* (ii) SELECT SUM(STIPEND) FROM GRADUATE WHERE DIV1=2; Output: 1000
+* (iii) SELECT AVG(STIPEND) FROM GRADUATE WHERE AVERAGE>=65; Output: 416.66...
+* (iv) SELECT COUNT(DISTINCT SUBJECT) FROM GRADUATE; Output: 4
+SPORTS Table
+Table Data:
+StudentNo
+	Class
+	Name
+	Game1
+	Grade1
+	Game2
+	Grade2
+	10
+	7
+	Sameer
+	Cricket
+	B
+	Swimming
+	A
+	11
+	8
+	Sujit
+	Tennis
+	A
+	Skating
+	C
+	12
+	7
+	Kamal
+	Swimming
+	B
+	Football
+	B
+	13
+	7
+	Veena
+	Tennis
+	C
+	Tennis
+	A
+	14
+	9
+	Archana
+	Basketball
+	A
+	Cricket
+	A
+	15
+	10
+	Arpit
+	Cricket
+	A
+	Athletics
+	C
+	Questions & Answers:
+(a) Display the names of the students who have grade 'C' in either Game1 or Game2 or both.
+SELECT Name FROM SPORTS WHERE Grade1 = 'C' OR Grade2 = 'C';
+
+(b) Display the number of students getting grade 'A' in Cricket.
+SELECT COUNT(*) FROM SPORTS WHERE (Game1 = 'Cricket' AND Grade1 = 'A') OR (Game2 = 'Cricket' AND Grade2 = 'A');
+
+Output: 2
+(c) Display the names of the students who have same game for both Game1 and Game2.
+SELECT Name FROM SPORTS WHERE Game1 = Game2;
+
+(d) Display the names of the games taken up by the students, whose name starts with 'A'.
+SELECT Game1, Game2 FROM SPORTS WHERE Name LIKE 'A%';
+
+(e) Add a new column named 'Marks'.
+ALTER TABLE SPORTS ADD Marks INT;
+
+(f) Assign a value 200 for Marks for all those who are getting grade 'B' or grade 'A' in both Game1 and Game2.
+UPDATE SPORTS SET Marks = 200 WHERE (Grade1 = 'A' OR Grade1 = 'B') AND (Grade2 = 'A' OR Grade2 = 'B');
+
+(g) Arrange the whole table in the alphabetical order of Name.
+SELECT * FROM SPORTS ORDER BY Name;
+
+LAB Table
+Table Data:
+No
+	ItemName
+	CostPerItem
+	Quantity
+	DateofPurchase
+	Waranty
+	Operational
+	1
+	Computer
+	60000
+	9
+	2006-05-21
+	2
+	7
+	2
+	Printer
+	15000
+	3
+	2007-05-21
+	4
+	2
+	3
+	Scanner
+	18000
+	1
+	2008-08-29
+	3
+	1
+	4
+	Camera
+	21000
+	2
+	2006-06-13
+	1
+	2
+	5
+	Hub
+	8000
+	1
+	2009-04-13
+	2
+	1
+	6
+	UPS
+	5000
+	5
+	2006-05-21
+	1
+	4
+	7
+	Plotter
+	25000
+	2
+	2010-01-11
+	2
+	2
+	Questions & Answers:
+(a) To select the ItemName purchased after 2007-10-31.
+SELECT ItemName FROM LAB WHERE DateofPurchase > '2007-10-31';
+
+(b) To list the ItemName, which are within the Waranty period till present date (i.e. current date).
+SELECT ItemName FROM LAB WHERE DATE_ADD(DateofPurchase, INTERVAL Waranty YEAR) >= CURDATE();
+
+(c) To list the ItemName in ascending order of the date of purchase where quantity is more than 3.
+SELECT ItemName FROM LAB WHERE Quantity > 3 ORDER BY DateofPurchase ASC;
+
+(d) To display ItemName, CostPerItem, and Quantity whose Waranty is over.
+SELECT ItemName, CostPerItem, Quantity FROM LAB WHERE DATE_ADD(DateofPurchase, INTERVAL Waranty YEAR) < CURDATE();
+
+(e) To count the number of items whose cost is more than 10000.
+SELECT COUNT(*) FROM LAB WHERE CostPerItem > 10000;
+
+Output: 5
+(f) To insert a new record in the Lab table with the following data: 8, 'VCR', 10000, 2, '2010-02-02', 1, 2.
+INSERT INTO LAB VALUES (8, 'VCR', 10000, 2, '2010-02-02', 1, 2);
