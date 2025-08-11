@@ -1,0 +1,213 @@
+﻿# Part B: DATA Visualization
+
+### Question 3: Line chart for sales in different cities.
+
+**Code:**
+```python
+import matplotlib.pyplot as plt
+
+# Data for the line chart
+cities = ['Chennai', 'Goa', 'Mumbai', 'Kolkata', 'Delhi']
+sales_2008 = [300, 150, 500, 300, 600]
+sales_2009 = [200, 250, 800, 450, 500]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.plot(cities, sales_2008, marker='o', label='2008')
+plt.plot(cities, sales_2009, marker='s', color='c', label='2009')
+
+# Adding titles and labels
+plt.title('Sales Comparison by City (2008 vs 2009)')
+plt.xlabel('Cities')
+plt.ylabel('Sales')
+plt.ylim(0, 900)
+plt.grid(axis='y', linestyle='--')
+plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+
+# Display the plot
+plt.show()
+
+Question 4: Line chart for the number of students who passed an exam.
+Code:
+import matplotlib.pyplot as plt
+
+# Data
+classes = ['X A', 'X B', 'XI A', 'XI B', 'XII A', 'XII B']
+no_of_boys = [23, 22, 20, 26, 33, 30]
+no_of_girls = [17, 10, 20, 12, 5, 8]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.plot(classes, no_of_boys, marker='o', linestyle='--', color='purple', label='Boys')
+plt.plot(classes, no_of_girls, marker='o', linestyle=':', color='pink', label='Girls')
+
+# Adding titles and labels
+plt.title('Number of Students Passed')
+plt.xlabel('Classes')
+plt.ylabel('No. of Students')
+plt.legend()
+
+# Display the plot
+plt.show()
+
+Question 5: Bar chart for app ratings.
+Code:
+import matplotlib.pyplot as plt
+
+# Data
+apps = ['Arogya Setu', 'WPS Office', 'Cam Scanner', 'WhatsApp', 'Telegram']
+ratings = [3.9, 4.2, 4.3, 4.1, 4.2]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.bar(apps, ratings, color='purple', label='App Rating')
+
+# Adding titles and labels
+plt.title('App Ratings on Play Store')
+plt.xlabel('Apps')
+plt.ylabel('Rating')
+plt.ylim(0, 4.5)
+plt.legend()
+
+# Display the plot
+plt.show()
+
+Question 7: Grouped bar chart for the number of students in each group.
+Code:
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+groups = ['Group A', 'Group B', 'Group C', 'Group D']
+Ygirls = [10, 20, 20, 40]
+Zboys = [20, 30, 25, 30]
+
+# Set position of bar on X axis
+bar_width = 0.35
+r1 = np.arange(len(Ygirls))
+r2 = [x + bar_width for x in r1]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.bar(r1, Ygirls, color='tab:blue', width=bar_width, edgecolor='grey', label='Girls')
+plt.bar(r2, Zboys, color='tab:orange', width=bar_width, edgecolor='grey', label='Boys')
+
+# Adding titles and labels
+plt.title('Number of Students in each group')
+plt.xlabel('Groups', fontweight='bold')
+plt.ylabel('Number of Students', fontweight='bold')
+plt.xticks([r + bar_width/2 for r in range(len(Ygirls))], groups)
+plt.legend()
+
+# Display the plot
+plt.show()
+
+Question 8: Grouped bar chart for the number of people who voted each year.
+Code:
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+years = ['2018', '2019', '2020', '2021']
+women_votes = [120, 220, 250, 200]
+men_votes = [110, 230, 480, 350]
+
+# Set position of bar on X axis
+bar_width = 0.25
+r1 = np.arange(len(women_votes))
+r2 = [x + bar_width for x in r1]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.bar(r1, women_votes, color='blue', width=bar_width, edgecolor='grey', label='Women')
+plt.bar(r2, men_votes, color='green', width=bar_width, edgecolor='grey', label='Men')
+
+# Adding titles and labels
+plt.title('Number of people voted in each year')
+plt.xlabel('Year', fontweight='bold')
+plt.ylabel('Number of people voted', fontweight='bold')
+plt.xticks([r + bar_width/2 for r in range(len(women_votes))], years)
+plt.ylim(0, 550)
+plt.legend()
+
+# Display the plot
+plt.show()
+
+Question 9: Grouped bar chart for players' scores.
+Code:
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+dates = ['2021Feb01', '2021Feb02', '2021Feb03']
+player1_scores = [8, 9, 2]
+player2_scores = [10, 20, 30]
+player3_scores = [11, 12, 13]
+
+# Set position of bar on X axis
+bar_width = 0.25
+r1 = np.arange(len(dates))
+r2 = [x + bar_width for x in r1]
+r3 = [x + bar_width for x in r2]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.bar(r1, player1_scores, color='red', width=bar_width, edgecolor='grey', label='Player1')
+plt.bar(r2, player2_scores, color='green', width=bar_width, edgecolor='grey', label='Player2')
+plt.bar(r3, player3_scores, color='blue', width=bar_width, edgecolor='grey', label='Player3')
+
+# Adding titles and labels
+plt.title('Players Score')
+plt.xlabel('Dates', fontweight='bold')
+plt.ylabel('Scores', fontweight='bold')
+plt.xticks([r + bar_width for r in range(len(dates))], dates)
+plt.legend()
+
+# Display the plot
+plt.show()
+
+Question 10: Histogram from a list of numbers.
+Code:
+import matplotlib.pyplot as plt
+
+# Data
+x = [21, 22, 23, 4, 5, 6, 77, 8, 9, 10, 31, 32, 33, 34, 35, 36, 37, 18, 49, 50, 100]
+num_bins = 5
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+plt.hist(x, num_bins, color='mediumslateblue', alpha=0.8, edgecolor='white')
+
+# Adding titles and labels
+plt.title('Histogram of Given Data')
+plt.xlabel('Value Bins')
+plt.ylabel('Frequency')
+
+# Display the plot
+plt.show()
+
+Question 11: Histogram for math scores.
+Code:
+import matplotlib.pyplot as plt
+
+# Data
+math_score = [
+   54, 37, 57, 43, 72, 43, 91, 43, 93, 49, 60, 69, 62, 73, 42, 83, 82, 83, 81, 33,
+   70, 50, 81, 89, 87, 45, 85, 55, 53, 60, 53, 66, 53, 79, 79, 69, 55, 87, 66, 49,
+   73, 41, 75, 60, 90, 50, 44, 47, 78, 79, 78, 48, 84, 68, 56, 64, 83, 48, 86, 63,
+   59, 87, 42, 68, 47, 98, 52, 72, 62, 66, 83, 47, 34, 84, 64, 98, 95, 57, 82, 52,
+   56, 74, 84, 83, 65, 31, 89, 75, 79, 77, 78, 68, 78, 48, 88, 62, 88, 74, 74, 78
+]
+
+# Creating the plot
+plt.figure(figsize=(10, 6))
+# The plot in the image seems to have about 10 bins
+plt.hist(math_score, bins=10, color='tab:blue', edgecolor='white')
+
+# Adding titles and labels
+plt.title('Distribution of Math Scores')
+plt.xlabel('Scores')
+plt.ylabel('Number of Students')
+
+# Display the plot
+plt.show()
